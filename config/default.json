@@ -1,0 +1,40 @@
+{
+  "server": {
+    "port": 3000,
+    "welcomeMessage": "Teacher Management System Server Listening on Development Mode"
+  },
+  "db": {
+    "path": "mongodb+srv://easytravelappnipun:nuLV9MTVegi8F3QS@easytravelapp.jcifyj4.mongodb.net/edhirya?retryWrites=true&w=majority&appName=EasyTravelApp"
+  },
+  "auth": {
+    "accessToken": {
+      "issuer": "MIT G-03 (Pvt) Ltd",
+      "expiresIn": "1h",
+      "passphrase": "mit_it_software"
+    },
+    "refreshToken": {
+      "issuer": "MIT G-03 (Pvt) Ltd",
+      "expiresIn": "30d",
+      "secret": "767a0dd78bea8d5014aed829b657ad28313a47531bd3635ec4e4bce3d6d2c67e",
+      "errorMessage": "jwt expired"
+    },
+    "passwordReset": {
+      "time": 10,
+      "unit": "minutes"
+    }
+  },
+  "aws-s3": {
+    "accessKeyId": "AKIA6ELKNUZR4U7GNP6F",
+    "baseUrl": "https://nipundev.s3.eu-north-1.amazonaws.com",
+    "bucketName": "nipundev",
+    "folder": "teacher",
+    "hostedZoneName": "",
+    "region": "eu-north-1",
+    "secretAccessKey": "ffFecKGDlWJK+JXau0fhVLTtenkEYlcRiiNC+24K"
+  },
+  "email": {
+    "user": "europcarchatgpttransfer@gmail.com",
+    "password": "ejve swuy gmbq quhj"
+  },
+  "frontEndUrl": "http://localhost:4200"
+}
