@@ -5,6 +5,7 @@ import {roleRouter} from "./role.routes";
 import {departRouter} from "./department.routes";
 import {employeeRouter} from "./employee.routes";
 import {loggerRouter} from "./logger.routes";
+import {leaveRouter} from "./leave.routes";
 
 
 export const routes = (app: any) => {
@@ -14,5 +15,6 @@ export const routes = (app: any) => {
     app.use("/role", roleRouter);
     app.use("/department", departRouter);
     app.use("/employee", employeeRouter);
+    app.use("/leave", leaveRouter);
     app.use("/log", loggerRouter);
 };
