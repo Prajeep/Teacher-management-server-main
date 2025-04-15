@@ -1,5 +1,5 @@
 import { ILeave } from "../models/leave.model"; 
-import { createLeaveRepo } from "../data-access/leave.repo"; 
+import { createLeaveRepo , getPagedLeaveRepo} from "../data-access/leave.repo";
 
 export const createLeaveService = async (data: ILeave, userId: string): Promise<ILeave> => {
     try {
@@ -8,5 +8,14 @@ export const createLeaveService = async (data: ILeave, userId: string): Promise<
         return leave;
     } catch (e) {
         throw e;  
+    }
+
+};
+
+export const getPagedLeaveService = async (data: any) => {
+    try {
+        return await getPagedLeaveRepo(data);
+    } catch (e) {
+        throw e;
     }
 };
