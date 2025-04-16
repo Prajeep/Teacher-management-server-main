@@ -3,7 +3,7 @@ import { log } from "../util/logger";
 import {
     createEmployeeService,
     findOneAndUpdateEmployeeService, findOneEmployeeByIdService,
-    getPagedEmployeeService
+    getPagedEmployeeService,getPagedEmployeeTeachersService
 } from "../services/employee.service";
 
 export const createEmployeeController = async (req: any, res: any) => {
@@ -22,6 +22,17 @@ export const getPagedEmployeesController = async (req: any, res: any) => {
     log.info("Getting paged Teachers");
     try {
         const data = await getPagedEmployeeService(req.body);
+        res.send(data);
+        log.info("Getting paged Teachers completed");
+    } catch (e) {
+        log.error(JSON.stringify(e));
+        return res.status(400).send(e);
+    }
+};
+export const getPagedEmployeesTeachersController = async (req: any, res: any) => {
+    log.info("Getting paged Teachers");
+    try {
+        const data = await getPagedEmployeeTeachersService(req.body);
         res.send(data);
         log.info("Getting paged Teachers completed");
     } catch (e) {

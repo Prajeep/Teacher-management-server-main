@@ -75,7 +75,7 @@ export const createUserService = async (data: any) => {
                     url: `${config.get("frontEndUrl")}/auth/login`.toString(),
                 },
                 admin.email,
-                `Welcome to Edhirya`
+                `Welcome to Teacher Management System`
             );
             admin.password = undefined;
             return admin;
