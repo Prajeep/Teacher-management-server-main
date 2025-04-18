@@ -9,7 +9,7 @@ import { Log } from '../models/log.model';
 
 const router = express.Router();
 
-// ✅ GET /dashboard/summary - counts
+// GET dashboard summary - counts
 router.get('/summary', async (req, res) => {
   try {
     const departments = await Department.countDocuments();
@@ -58,7 +58,7 @@ router.get('/employee-count', async (req, res) => {
 });
 
 
-// ✅ GET /dashboard/monthly-leaves - Bar chart
+// GET dashboard monthly-leaves - Bar chart
 router.get('/monthly-leaves', async (req, res) => {
   try {
     const result = await LeaveModel.aggregate([
@@ -93,7 +93,7 @@ router.get('/monthly-leaves', async (req, res) => {
   }
 });
 
-// ✅ GET /dashboard/recent-logs - Activity feed
+// GET dashboard recent-logs - Activity feed
 router.get('/recent-logs', async (req, res) => {
   try {
     const logs = await Log.find().sort({ createdAt: -1 }).limit(5);
