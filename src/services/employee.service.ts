@@ -3,7 +3,7 @@ import {
     createEmployeeRepo,
     findOneAndUpdateEmployeeRepo,
     findOneEmployeeRepo,
-    getPagedEmployeesRepo
+    getPagedEmployeesRepo,getPagedEmployeesTeachersRepo
 } from "../data-access/employee.repo";
 import {sendEmailService} from "./email.service";
 import {SETTINGS} from "../constants/commons.settings";
@@ -27,7 +27,7 @@ export const createEmployeeService = async (data: any, reqUserId: any) => {
                         name: employee.firstname + " " + employee.lastname,
                     },
                     employee.email,
-                    `Welcome to Edhirya`
+                    `Welcome to Teacher Management System`
                 );
             }
             return employee;
@@ -44,6 +44,14 @@ export const getPagedEmployeeService = async (data: any) => {
         throw e;
     }
 };
+export const getPagedEmployeeTeachersService = async (data: any) => {
+    try {
+        return await getPagedEmployeesTeachersRepo(data);
+    } catch (e) {
+        throw e;
+    }
+};
+
 export const findOneAndUpdateEmployeeService = async (data: any, reqUserId: any) => {
     try {
         const type = data?.type
