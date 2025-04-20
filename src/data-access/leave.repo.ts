@@ -1,4 +1,4 @@
-import { LeaveModel } from "../models/leave.model"; 
+import { LeaveModel } from "../models/leave.model";
 
 export const createLeaveRepo = (data: any) => {
     return new LeaveModel(data).save();
@@ -44,6 +44,7 @@ export const getPagedLeaveRepo = async (data: any) => {
         _id: 1,
         teacherName: 1,
         category: 1,
+        designation: 1,
         type: 1,
         fromDate: 1,
         toDate: 1,

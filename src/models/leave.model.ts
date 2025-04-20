@@ -4,8 +4,10 @@ import { isDate } from "validator";
 // Leave Interface
 export interface ILeave extends Document {
   _id: string;
+  refNo: string;
   teacherName: string;
   category: string;
+  designation:string;
   type: string;
   fromDate: Date;
   toDate: Date;
@@ -22,11 +24,19 @@ export interface ILeave extends Document {
 // Leave Schema
 export const LeaveSchema = new Schema<ILeave>(
   {
+      refNo: {
+          type: String,
+     required: [true, "Reference number is required"],
+             },
     teacherName: {
       type: String,
       required: true,
     },
     category: {
+      type: String,
+      required: true,
+    },
+    designation: {
       type: String,
       required: true,
     },
@@ -75,6 +85,7 @@ export const LeaveSchema = new Schema<ILeave>(
     timestamps: true,
   }
 );
+
 
 // Export the model
 export const LeaveModel = model<ILeave>("Leave", LeaveSchema);
