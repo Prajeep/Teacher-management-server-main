@@ -13,7 +13,6 @@ export interface ILeave extends Document {
   toDate: Date;
   leaveDays: number;
   reason: string;
-  reliefAssignee: string;
   status: string;
   archived: boolean;
   createdBy: string;
@@ -60,10 +59,6 @@ export const LeaveSchema = new Schema<ILeave>(
       min: [1, "Leave days must be at least 1"],
     },
     reason: {
-      type: String,
-      required: true,
-    },
-    reliefAssignee: {
       type: String,
       required: true,
     },

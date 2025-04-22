@@ -2,7 +2,23 @@ import {findLatestUserRepo} from "../data-access/admin.repo";
 import {findLatestDepartmentRepo} from "../data-access/department.repo";
 import {Employee} from "../models/employee.model";
 import {findLatestEmployeeRepo} from "../data-access/employee.repo";
+import { LeaveModel } from "../models/leave.model";
 
+export const createLeaveRefNo = async (): Promise<string> => {
+  const latestLeave = await LeaveModel.findOne().sort({ createdAt: -1 }).exec();
+
+  let nextNumber = 1;
+
+  if (latestLeave?.refNo) {
+    const match = latestLeave.refNo.match(/\d+/);
+    if (match) {
+      nextNumber = parseInt(match[0], 10) + 1;
+    }
+  }
+
+  const padded = String(nextNumber).padStart(4, "0");
+  return `Leave${padded}`;
+};
 
 export const createUserRefNo = async () => {
     let users: any[] = [];

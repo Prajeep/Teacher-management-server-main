@@ -1,7 +1,13 @@
 import { LeaveModel } from "../models/leave.model";
+import { createLeaveRefNo } from "../util/refferenceNumbers";
 
-export const createLeaveRepo = (data: any) => {
-    return new LeaveModel(data).save();
+
+export const createLeaveRepo = async (data: any) => {
+  if (!data.refNo) {
+    data.refNo = await createLeaveRefNo();
+  }
+
+  return new LeaveModel(data).save();
 };
 
 export const getPagedLeaveRepo = async (data: any) => {
@@ -42,6 +48,7 @@ export const getPagedLeaveRepo = async (data: any) => {
     {
       $project: {
         _id: 1,
+        refNo: 1,
         teacherName: 1,
         category: 1,
         designation: 1,
@@ -57,6 +64,8 @@ export const getPagedLeaveRepo = async (data: any) => {
         updatedAt: 1,
         text: {
           $concat: [
+            { $ifNull: ["$refNo", ""] },
+            " ",
             { $ifNull: ["$teacherName", ""] },
             " ",
             { $ifNull: ["$category", ""] },
