@@ -1,20 +1,25 @@
 import express from 'express';
-
 import { Department } from '../models/department.model';
 import { Employee } from '../models/employee.model';
 import { LeaveModel } from '../models/leave.model';
 import { User } from '../models/user.model';
 import { Log } from '../models/log.model';
 
-
 const router = express.Router();
 
 // GET dashboard summary - counts
 router.get('/summary', async (req, res) => {
   try {
+    console.log('Fetching summary data...');
+    
     const departments = await Department.countDocuments();
+    console.log('Departments count:', departments);
+    
     const employees = await Employee.countDocuments();
+    console.log('Employees count:', employees);
+    
     const users = await User.countDocuments();
+    console.log('Users count:', users);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -25,10 +30,25 @@ router.get('/summary', async (req, res) => {
       fromDate: { $lt: tomorrow },
       toDate: { $gte: today },
     });
+    console.log('Leaves today:', leavesToday);
+    console.log('Date range:', { today, tomorrow });
 
-    res.json({ departments, employees, users, leavesToday });
-  } catch (err) {
-    res.status(500).json({ error: 'Error fetching summary' });
+    const summary = { 
+      departments, 
+      employees, 
+      users, 
+      leavesToday,
+      timestamp: new Date().toISOString()
+    };
+    console.log('Sending summary:', summary);
+
+    res.json(summary);
+  } catch (error: any) {
+    console.error('Error in /summary endpoint:', error);
+    res.status(500).json({ 
+      error: 'Error fetching summary',
+      details: error?.message || 'Unknown error'
+    });
   }
 });
 
@@ -56,7 +76,6 @@ router.get('/employee-count', async (req, res) => {
     res.status(500).json({ error: 'Error fetching employee count by department' });
   }
 });
-
 
 // GET dashboard monthly-leaves - Bar chart
 router.get('/monthly-leaves', async (req, res) => {
