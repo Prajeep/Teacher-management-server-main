@@ -1,5 +1,5 @@
 import { log } from "../util/logger";
-import { createLeaveService, getPagedLeaveService } from "../services/leave.service";
+import { createLeaveService, getPagedLeaveService, findOneAndUpdateLeaveService } from "../services/leave.service";
 
 export const createLeaveController = async (req: any, res: any) => {
     log.info("Creating leave request");
@@ -29,3 +29,40 @@ export const getPagedLeaveController = async (req: any, res: any) => {
         return res.status(400).send(e);
     }
 };
+
+// export const findOneAndUpdateLeaveController = async (req: any, res: any) => {
+//     log.info("Updating Leave");
+//     try {
+//         const { _id, status } = req.body;
+//         log.info("Request payload: " + JSON.stringify(req.body));
+
+//         const result = await findOneAndUpdateLeaveService(req.body, req.user.userId);
+//         res.send(result);
+//         log.info("Updating Leave completed");
+//     } catch (e) {
+//         log.error("Error updating leave: " + JSON.stringify(e));
+//         res.status(400).send(e);
+//     }
+// };
+
+export const findOneAndUpdateLeaveController = async (req: any, res: any) => {
+    log.info("Updating Leave");
+    try {
+        const { _id, status } = req.body;
+        log.info("Request payload: " + JSON.stringify(req.body));
+
+        // Make sure both _id and status are present
+        if (!_id || !status) {
+            return res.status(400).send("Both _id and status are required");
+        }
+
+        // Call the service to update the leave
+        const result = await findOneAndUpdateLeaveService(_id, status);
+        res.send(result);
+        log.info("Updating Leave completed");
+    } catch (e) {
+        log.error("Error updating leave: " + JSON.stringify(e));
+        res.status(400).send(e);
+    }
+};
+
